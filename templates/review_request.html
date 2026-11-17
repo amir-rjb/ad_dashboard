@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}بررسی درخواست{% endblock %}
+{% block content %}
+<div class="page-heading heading-row">
+    <div><span class="eyebrow">بررسی درخواست شماره {{ ad.id }}</span><h1>{{ ad.title }}</h1><p class="muted">ثبت‌کننده: {{ ad.owner.username }} · دسته‌بندی: {{ ad.category }}</p></div>
+    <a class="button secondary" href="{{ url_for('staff_dashboard') }}">بازگشت</a>
+</div>
+<div class="review-layout">
+    <section class="panel detail-panel">
+        {% if ad.image_filename %}<img class="ad-image" src="{{ url_for('static', filename='uploads/' + ad.image_filename) }}" alt="تصویر آگهی">{% endif %}
+        <h3>توضیحات</h3><p class="description">{{ ad.description }}</p>
+        <div class="detail-line"><strong>راه ارتباطی:</strong> {{ ad.contact }}</div>
+        <div class="detail-line"><strong>تاریخ ثبت:</strong> {{ ad.created_at.strftime('%Y/%m/%d - %H:%M') }}</div>
+        <div class="detail-line"><strong>وضعیت فعلی:</strong> <span class="status {{ ad.status }}">{{ STATUSES[ad.status] }}</span></div>
+        {% if ad.rejection_reason %}<div class="reason"><strong>دلیل رد قبلی:</strong> {{ ad.rejection_reason }}</div>{% endif %}
+    </section>
+    <aside class="panel decision-panel">
+        <h2>تصمیم‌گیری</h2>
+        {% if ad.status == 'pending' %}
+        <p class="muted">با تأیید، آگهی در صفحه عمومی منتشر می‌شود.</p>
+        <form method="post" class="decision-form">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <button class="button primary full" name="action" value="approve" type="submit">تأیید و انتشار آگهی</button>
+        </form>
+        <form method="post" class="decision-form">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <label>دلیل رد درخواست
+                <textarea name="rejection_reason" rows="4" maxlength="500" placeholder="دلیل رد را برای درخواست‌کننده بنویس..."></textarea>
+            </label>
+            <button class="button danger full" name="action" value="reject" type="submit">رد درخواست</button>
+        </form>
+        {% else %}
+        <p class="muted">این درخواست قبلاً بررسی شده و امکان تصمیم‌گیری دوباره در این نسخه وجود ندارد.</p>
+        {% endif %}
+    </aside>
+</div>
+{% endblock %}

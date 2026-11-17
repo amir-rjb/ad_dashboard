@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}ثبت‌نام{% endblock %}
+{% block content %}
+<div class="auth-wrap">
+    <form class="panel auth-card" method="post">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <span class="eyebrow">ایجاد حساب درخواست‌کننده</span>
+        <h1>ثبت‌نام</h1>
+        <p class="muted">ثبت‌نام عمومی فقط حساب درخواست‌کننده می‌سازد.</p>
+        <label>نام کاربری<input name="username" required minlength="3" maxlength="80" autocomplete="username"></label>
+        <label>رمز عبور<input type="password" name="password" required minlength="8" autocomplete="new-password"></label>
+        <label>تکرار رمز عبور<input type="password" name="confirm_password" required minlength="8" autocomplete="new-password"></label>
+        <button class="button primary full" type="submit">ساخت حساب</button>
+        <p class="form-note">قبلاً ثبت‌نام کرده‌ای؟ <a href="{{ url_for('login') }}">وارد شو</a></p>
+    </form>
+</div>
+{% endblock %}

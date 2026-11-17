@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}آگهی‌های منتشرشده{% endblock %}
+{% block content %}
+<div class="page-heading"><span class="eyebrow">ویترین آگهی‌ها</span><h1>آگهی‌های منتشرشده</h1><p class="muted">در این بخش فقط درخواست‌های تأییدشده نمایش داده می‌شوند.</p></div>
+{% if ads %}
+<div class="published-grid">
+    {% for ad in ads %}
+    <article class="panel published-card">
+        {% if ad.image_filename %}<img src="{{ url_for('static', filename='uploads/' + ad.image_filename) }}" alt="تصویر {{ ad.title }}">{% else %}<div class="image-placeholder">آگهی‌یار</div>{% endif %}
+        <div class="published-content"><span class="eyebrow">{{ ad.category }}</span><h2>{{ ad.title }}</h2><p>{{ ad.description }}</p><div class="contact"><strong>راه ارتباطی:</strong> {{ ad.contact }}</div></div>
+    </article>
+    {% endfor %}
+</div>
+{% else %}
+<div class="empty panel"><h2>هنوز آگهی‌ای منتشر نشده است</h2><p class="muted">بعد از تأیید درخواست‌ها، آگهی‌ها اینجا نمایش داده می‌شوند.</p></div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}ثبت درخواست آگهی{% endblock %}
+{% block content %}
+<div class="page-heading">
+    <span class="eyebrow">درخواست جدید</span>
+    <h1>ثبت آگهی</h1>
+    <p class="muted">اطلاعات را با دقت وارد کن. درخواست پس از ارسال برای کارمند سامانه نمایش داده می‌شود.</p>
+</div>
+<form class="panel form-panel" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <div class="form-grid">
+        <label>عنوان آگهی *
+            <input name="title" maxlength="120" required placeholder="مثلاً فروش دوچرخه">
+        </label>
+        <label>دسته‌بندی *
+            <select name="category" required>
+                <option value="">انتخاب دسته‌بندی</option>
+                <option>کالا</option><option>خدمات</option><option>املاک</option><option>آموزش</option><option>سایر</option>
+            </select>
+        </label>
+        <label class="wide">توضیحات *
+            <textarea name="description" rows="6" maxlength="3000" required placeholder="جزئیات آگهی را بنویس..."></textarea>
+        </label>
+        <label>راه ارتباطی *
+            <input name="contact" maxlength="120" required placeholder="شماره تماس یا ایمیل">
+        </label>
+        <label>تصویر آگهی
+            <input type="file" name="image" accept=".png,.jpg,.jpeg,.webp">
+            <small>فرمت‌های مجاز: PNG، JPG، JPEG و WEBP — حداکثر ۳ مگابایت</small>
+        </label>
+    </div>
+    <div class="form-actions">
+        <button class="button primary" type="submit">ارسال برای بررسی</button>
+        <a class="button secondary" href="{{ url_for('my_requests') }}">انصراف</a>
+    </div>
+</form>
+{% endblock %}

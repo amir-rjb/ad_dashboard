@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}صفحه اصلی | آگهی‌یار{% endblock %}
+{% block content %}
+<section class="hero">
+    <div class="hero-copy">
+        <span class="eyebrow">سامانه مدیریت آگهی</span>
+        <h1>درخواست آگهی‌ات را<br><span>ساده ثبت کن.</span></h1>
+        <p>درخواست خود را ثبت کن، وضعیت بررسی را ببین و پس از تأیید، آگهی را در بخش آگهی‌های منتشرشده مشاهده کن.</p>
+        <div class="hero-actions">
+            <a class="button primary" href="{{ url_for('register') }}">شروع ثبت درخواست</a>
+            <a class="button secondary" href="{{ url_for('published_ads') }}">مشاهده آگهی‌ها</a>
+        </div>
+    </div>
+    <div class="hero-card">
+        <div class="hero-card-top"><span class="dot"></span> روند ثبت آگهی</div>
+        <div class="step"><b>۰۱</b><div><strong>ثبت درخواست</strong><small>اطلاعات و تصویر آگهی را ارسال کن</small></div></div>
+        <div class="step"><b>۰۲</b><div><strong>بررسی کارمند</strong><small>درخواست توسط کارمند بررسی می‌شود</small></div></div>
+        <div class="step"><b>۰۳</b><div><strong>تأیید و انتشار</strong><small>آگهی تأییدشده منتشر می‌شود</small></div></div>
+    </div>
+</section>
+<section class="info-strip">
+    <div><strong>شفاف</strong><span>مشاهده وضعیت درخواست</span></div>
+    <div><strong>ساده</strong><span>فرم ثبت آگهی کوتاه</span></div>
+    <div><strong>قابل پیگیری</strong><span>تاریخچه درخواست‌ها</span></div>
+</section>
+{% endblock %}

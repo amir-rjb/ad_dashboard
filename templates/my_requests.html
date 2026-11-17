@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}درخواست‌های من{% endblock %}
+{% block content %}
+<div class="page-heading heading-row">
+    <div><span class="eyebrow">پنل درخواست‌کننده</span><h1>درخواست‌های من</h1><p class="muted">وضعیت درخواست‌هایی که ثبت کرده‌ای را اینجا می‌بینی.</p></div>
+    <a class="button primary" href="{{ url_for('new_request') }}">+ ثبت درخواست</a>
+</div>
+{% if ads %}
+<div class="request-list">
+    {% for ad in ads %}
+    <article class="panel request-card">
+        <div class="request-main">
+            <div class="request-meta"><span>{{ ad.category }}</span><span>شماره {{ ad.id }}</span></div>
+            <h2>{{ ad.title }}</h2>
+            <p>{{ ad.description }}</p>
+            <small class="muted">ثبت‌شده در {{ ad.created_at.strftime('%Y/%m/%d - %H:%M') }}</small>
+            {% if ad.status == 'rejected' and ad.rejection_reason %}<div class="reason"><strong>دلیل رد:</strong> {{ ad.rejection_reason }}</div>{% endif %}
+        </div>
+        <span class="status {{ ad.status }}">{{ STATUSES[ad.status] }}</span>
+    </article>
+    {% endfor %}
+</div>
+{% else %}
+<div class="empty panel"><div class="empty-icon">＋</div><h2>هنوز درخواستی ثبت نکرده‌ای</h2><p class="muted">اولین درخواست آگهی خودت را ثبت کن.</p><a class="button primary" href="{{ url_for('new_request') }}">ثبت درخواست</a></div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}پنل کارمند{% endblock %}
+{% block content %}
+<div class="page-heading">
+    <span class="eyebrow">پنل کارمند سامانه</span><h1>مدیریت درخواست‌ها</h1>
+    <p class="muted">درخواست‌ها را بررسی کن و درباره انتشار یا رد آن‌ها تصمیم بگیر.</p>
+</div>
+<div class="stats-grid">
+    <div class="panel stat"><span>کل درخواست‌ها</span><strong>{{ counts.all }}</strong></div>
+    <div class="panel stat"><span>در انتظار بررسی</span><strong>{{ counts.pending }}</strong></div>
+    <div class="panel stat"><span>منتشرشده</span><strong>{{ counts.approved }}</strong></div>
+    <div class="panel stat"><span>ردشده</span><strong>{{ counts.rejected }}</strong></div>
+</div>
+<div class="filter-row">
+    <a class="{{ 'selected' if active_filter == 'all' else '' }}" href="{{ url_for('staff_dashboard', status='all') }}">همه</a>
+    <a class="{{ 'selected' if active_filter == 'pending' else '' }}" href="{{ url_for('staff_dashboard', status='pending') }}">در انتظار بررسی</a>
+    <a class="{{ 'selected' if active_filter == 'approved' else '' }}" href="{{ url_for('staff_dashboard', status='approved') }}">منتشرشده</a>
+    <a class="{{ 'selected' if active_filter == 'rejected' else '' }}" href="{{ url_for('staff_dashboard', status='rejected') }}">ردشده</a>
+</div>
+{% if ads %}
+<div class="table-wrap panel">
+<table>
+    <thead><tr><th>آگهی</th><th>درخواست‌کننده</th><th>تاریخ</th><th>وضعیت</th><th></th></tr></thead>
+    <tbody>
+    {% for ad in ads %}
+    <tr>
+        <td><strong>{{ ad.title }}</strong><small>{{ ad.category }}</small></td>
+        <td>{{ ad.owner.username }}</td>
+        <td>{{ ad.created_at.strftime('%Y/%m/%d') }}</td>
+        <td><span class="status {{ ad.status }}">{{ STATUSES[ad.status] }}</span></td>
+        <td><a class="table-link" href="{{ url_for('review_request', ad_id=ad.id) }}">بررسی ←</a></td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+{% else %}
+<div class="empty panel"><h2>درخواستی وجود ندارد</h2><p class="muted">برای این فیلتر، موردی پیدا نشد.</p></div>
+{% endif %}
+{% endblock %}

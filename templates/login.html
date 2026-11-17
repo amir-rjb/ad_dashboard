@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}ورود{% endblock %}
+{% block content %}
+<div class="auth-wrap">
+    <form class="panel auth-card" method="post">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <span class="eyebrow">خوش برگشتی</span>
+        <h1>ورود به حساب</h1>
+        <p class="muted">برای ادامه، اطلاعات حساب خود را وارد کن.</p>
+        <label>نام کاربری<input name="username" required minlength="3" autocomplete="username"></label>
+        <label>رمز عبور<input type="password" name="password" required autocomplete="current-password"></label>
+        <button class="button primary full" type="submit">ورود</button>
+        <p class="form-note">حساب نداری؟ <a href="{{ url_for('register') }}">ثبت‌نام کن</a></p>
+    </form>
+</div>
+{% endblock %}
